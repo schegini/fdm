@@ -18,7 +18,7 @@ For context, the standard normal CDF gives the probability that a variable will 
 
 The MatPlotLib library will be used to plot our results as well as our quantified error versus the Black-Scholes Model. 
 
-### 2. Options Basic Overview and Vocabulary
+## 2. Options Basic Overview
 
 First off, what even is an option? Essentially, an option is a financial contract that gives the holder the right, **but not the obligation,** to buy or sell an asset (usually a stock or index) at a specific price on or before a certain date.
 
@@ -32,6 +32,8 @@ Consequently, we say that a contract is "out-of-the-money" (OTM) if the price of
 
 *Note that this is an oversimplification as option contracts are used in many different ways in countless unique trading strategies, but I trust that the reader gets the point. 
 
+## 3. Vocabulary
+
 Let's now expand on some vocabulary.
 
 In the world of Option Contract pricing, there are some terms that are confusing to grasp for the common person. So, here is a detailed explanation of each term used:
@@ -44,7 +46,7 @@ In the world of Option Contract pricing, there are some terms that are confusing
   
   Sigma:          our annualized volatility variable, or in specificity: the standard deviation of the underlying asset's continuously compounded returns. So, given a sigma of 0.3, we basically are saying, "This stock's log returns over one year have a standard deviation of 30%." On a deeper level, a higher sigma                        means that stock price is expected to take a wilder and more random "path." This makes options contracts more valuable as there is a greater chance that they will end up far in-the-money or out-of-the-money
 
-#### 3. Implementation
+## 4. Implementation
 
 '''python
 Strike = 50                 # Strike price
@@ -61,7 +63,32 @@ We just want to make it crystal-clear what assumptions the model is going off of
 
 Therefore, our variables are essentially telling us: "I would like to price a 3-month European put option with a strike price of $50, a risk-free rate of 5%, and a constant volatility of 30%."
 
+Let's explain our grid next.
 
+## 5. The Grid and Explicit Finite-Difference Method (FDM)
+
+Think of pricing our European put contract as filling in a spreadsheet where each column is a stock-price level going from $0 to $100 per share in evenly-spaced steps; each row is a moment in time from today back to expiration. 
+
+At the very bottom row, time = T, if the stock price is S then the put is worth it's maximum potential value given by: (Strike - S, 0). So, if we know what the end value is, we can work backwards to figure out what the put is worth today which would be the top row of our spreadsheet.
+
+At each backward step we take in time, we compute each cell of our spreadsheet by taking a weighted average of three cells directly below it: the same-price cell, the one just below and to the left (a slightly lower stock price S), and the cell just below and to the right (a slightly higher price S).
+    This comes from two pieces of market data that we defined: sigma (volatility) and the risk free rate (how fast money grows safely)
+
+We can relate this "taking a weighted average" to linear-algebra:
+
+  Imagine we are multiplying a column vector V (which is an element of R^401) by a fixed matrix A that is of dimensions 401 x 401 whose only nonzero entries lie on the main diagonal and the diagonals immediately above and below the main diagonal. 
+
+  A * V now produces a new column vector V_new whose i-th component is given by:             (V_new) = a_i V_i-1 + b_i V_i + c_i V_i+1
+
+  We essentially compute V_new entry-by-entry without explicit loops.
+
+  However, we have to realize that we are pricing a put contract, so the first and last entries need to address specific values. Therefore, the value at S = 0 is given by: Strike * e^(-rf_rate * dt). Additionally, the value at S_max = 100 is given by Strike = 0 (as it would be OTM).
+
+  By iterating our matrix-vector multiplication backwards N times, we end up with the entire top row V(0), which is our FDM estimate of the put price as a function of stock price S.
+
+**Note:** The Black-Scholes formula solves this problem all in one go using integration and normal distribution
+
+Therefore, **theoretically as our grid that we formed (the spreadsheet) gets more refined, the repeated V_new = A * V multiplications will reproduce the values output by Black-Scholes with smaller and smaller errors.**
 
 
 
