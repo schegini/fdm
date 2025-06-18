@@ -71,8 +71,23 @@ Think of pricing our European put contract as filling in a spreadsheet where eac
 
 At the very bottom row, time = T, if the stock price is S then the put is worth it's maximum potential value given by: (Strike - S, 0). So, if we know what the end value is, we can work backwards to figure out what the put is worth today which would be the top row of our spreadsheet.
 
-At each backward step we take in time, we compute each cell of our spreadsheet by taking a weighted average of three cells directly below it: the same-price cell, the one just below and to the left (a slightly lower stock price S), and the cell just below and to the right (a slightly higher price S).
-    This comes from two pieces of market data that we defined: sigma (volatility) and the risk free rate (how fast money grows safely)
+We compute our steps as such and then print them:
+
+'''python
+# Compute step sizes
+dS = S_max / M
+max_dt = (dS**2) / (sigma**2 * S_max**2)
+N = int(np.ceil(Time / max_dt))
+dt = Time / N
+
+# Print the number of time steps
+print("Using N =", N, "so dt =", dt, "<= max_dt", max_dt)
+'''
+
+At each backward (evenly-spaced) step we take in time, we compute each cell of our spreadsheet by taking a weighted average of three cells directly below it: the same-price cell, the one just below and to the left (a slightly lower stock price S), and the cell just below and to the right (a slightly higher price S).
+    Note: This comes from two pieces of market data that we defined: sigma (volatility) and the risk free rate (how fast money grows safely)
+
+Here
 
 We can relate this "taking a weighted average" to linear-algebra:
 
