@@ -244,11 +244,46 @@ plt.grid()
 plt.show()
 ```
 
-Which outputs something like this:
+Which outputs something like this: #TODO: add output plot
+
+Not too bad, huh?
   
+# 9. Compute and Plot Errors
 
+So we know that our FDM generated estimated prices against Black-Scholes. Let's see where our absolute errors and relative errors could be and then plot them.
 
+We start by computing absolute error and relative error, and creating an array out of them:
 
+```python
+# Compute absolute error array and relative error
+error = np.abs(V - V_bs)
+rel_error = error / V_bs
+```
+
+Next, let's find the max and mean error with location as well:
+
+```python
+# Print max and mean error as well as peak location
+i_max = np.argmax(error)
+print("Peak error:", error[i_max], "at S =", S[i_max])
+print("Max error: ", np.max(error))
+print("Mean error: ", np.mean(error))
+print("Max relative error: ", np.max(rel_error))
+```
+
+Finally, let's plot this so we can see it visually:
+
+```python
+# Plot errors
+plt.plot(S, error)
+plt.xlabel("Stock Price (S)")
+plt.ylabel("Absolute Error")
+plt.title("Error: |FDM - Black-Scholes|")
+plt.grid()
+plt.show()
+```
+
+Which generates something like this: #TODO: add error plot
 
 
 
