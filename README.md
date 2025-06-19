@@ -6,11 +6,11 @@ Here is a complete breakdown of how it works:
 
 ## 1. Importing Libraries
 
-'''python
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
-'''
+```
 
 We will use NumPy for vector operations and linear transformations to construct our grid, while using SciPy to import a standard normal cumulative distribution function (CDF). 
 
@@ -48,14 +48,14 @@ In the world of Option Contract pricing, there are some terms that are confusing
 
 ## 4. Implementation
 
-'''python
+```python
 Strike = 50                 # Strike price
 M = 400                     # Number of stock price steps
 S_max = 100                 # Maximum stock price
 Time = 0.25                 # Time til expiration (years)
 rf_rate = 0.05              # Risk free rate 
 sigma = 0.3                 # Volatility
-'''
+```
 
 We set the variables that we will use in our discretization and computing process. The reason that we do this is that for this project, we want to declared parameters for our model. We are not Jane Street and do not have the knowledge or access to complex pricing models. Yet.
 
@@ -73,25 +73,25 @@ At the very bottom row, time = T, if the stock price is S then the put is worth 
 
 Here we build our grid into our code:
 
-'''python
+```python
 S = np.linspace(0, 100, M + 1)
 V = np.maximum(Strike - S, 0)
 V_new = V.copy()
-'''
+```
 
 Additionally, we compute our steps as such and then print them:
 
-'''python
+```python
 dS = S_max / M
 max_dt = (dS**2) / (sigma**2 * S_max**2)
 N = int(np.ceil(Time / max_dt))
 dt = Time / N
-''' 
+``` 
 and
 
-'''python
+```python
 print("Using N =", N, "so dt =", dt, "<= max_dt", max_dt)
-'''
+```
 
 At each backward (evenly-spaced) step we take in time, we compute each cell of our spreadsheet by taking a weighted average of three cells directly below it: the same-price cell, the one just below and to the left (a slightly lower stock price S), and the cell just below and to the right (a slightly higher price S).
     Note: This comes from two pieces of market data that we defined: sigma (volatility) and the risk free rate (how fast money grows safely)
@@ -114,7 +114,7 @@ Therefore, **theoretically as our grid that we formed (the spreadsheet) gets mor
 
 This is our implementation of the explicit FDM approximation process in Python:
 
-'''python
+```python
 for n in range(N):
     for i in range(1, M):
         a = 0.5 * dt * (sigma**2 * i**2 - rf_rate * i)
@@ -126,7 +126,7 @@ for n in range(N):
   V_new[M] = 0                                                   # Upper bound
 
   V = V_new.copy()
-'''
+```
 
 
 
