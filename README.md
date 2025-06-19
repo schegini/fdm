@@ -71,23 +71,30 @@ Think of pricing our European put contract as filling in a spreadsheet where eac
 
 At the very bottom row, time = T, if the stock price is S then the put is worth it's maximum potential value given by: (Strike - S, 0). So, if we know what the end value is, we can work backwards to figure out what the put is worth today which would be the top row of our spreadsheet.
 
-We compute our steps as such and then print them:
+Here we build our grid into our code:
 
 '''python
-# Compute step sizes
+S = np.linspace(0, 100, M + 1)
+V = np.maximum(Strike - S, 0)
+V_new = V.copy()
+'''
+
+Additionally, we compute our steps as such and then print them:
+
+'''python
 dS = S_max / M
 max_dt = (dS**2) / (sigma**2 * S_max**2)
 N = int(np.ceil(Time / max_dt))
 dt = Time / N
+''' 
+and
 
-# Print the number of time steps
+'''python
 print("Using N =", N, "so dt =", dt, "<= max_dt", max_dt)
 '''
 
 At each backward (evenly-spaced) step we take in time, we compute each cell of our spreadsheet by taking a weighted average of three cells directly below it: the same-price cell, the one just below and to the left (a slightly lower stock price S), and the cell just below and to the right (a slightly higher price S).
     Note: This comes from two pieces of market data that we defined: sigma (volatility) and the risk free rate (how fast money grows safely)
-
-Here
 
 We can relate this "taking a weighted average" to linear-algebra:
 
@@ -104,6 +111,22 @@ We can relate this "taking a weighted average" to linear-algebra:
 **Note:** The Black-Scholes formula solves this problem all in one go using integration and normal distribution
 
 Therefore, **theoretically as our grid that we formed (the spreadsheet) gets more refined, the repeated V_new = A * V multiplications will reproduce the values output by Black-Scholes with smaller and smaller errors.**
+
+This is our implementation of the explicit FDM approximation process in Python:
+
+'''python
+for n in range(N):
+    for i in range(1, M):
+        a = 0.5 * dt * (sigma**2 * i**2 - rf_rate * i)
+        b = 1 - dt * (sigma**2 * i**2 + rf_rate)
+        c = 0.5 * dt * (sigma**2 * i**2 + rf_rate * i)
+        V_new[i] = a * V[i-1] + b * V[i] + c * V[i+1]
+        
+  V_new[0] = Strike * np.exp(-rf_rate * ( (n + 1) * dt))         # Lower bound
+  V_new[M] = 0                                                   # Upper bound
+
+  V = V_new.copy()
+'''
 
 
 
