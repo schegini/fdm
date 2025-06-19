@@ -2,23 +2,9 @@
 
 This is a pet project that utilizes an Expilcit Finite-Difference Method (FDM) to approximate and discretize a value to a European Put Option. Furthermore, it then compares that numerical solution to the Black-Scholes Model's assigned value. Finally, we quantify the error. 
 
-Here is a complete breakdown of how it works:
+Here is a complete breakdown of my project:
 
-## 1. Importing Libraries
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm
-```
-
-We will use NumPy for vector operations and linear transformations to construct our grid, while using SciPy to import a standard normal cumulative distribution function (CDF). 
-
-For context, the standard normal CDF gives the probability that a variable will take on a valule less than or equal to a specific value. It also represents the area under the standard normal probability density function (PDF) from negative infinity up to our variable. More on this when it comes up.
-
-The MatPlotLib library will be used to plot our results as well as our quantified error versus the Black-Scholes Model. 
-
-## 2. Options Basic Overview
+## 1. Options Basic Overview
 
 First off, what even is an option? Essentially, an option is a financial contract that gives the holder the right, **but not the obligation,** to buy or sell an asset (usually a stock or index) at a specific price on or before a certain date.
 
@@ -32,7 +18,7 @@ Consequently, we say that a contract is "out-of-the-money" (OTM) if the price of
 
 *Note that this is an oversimplification as option contracts are used in many different ways in countless unique trading strategies, but I trust that the reader gets the point. 
 
-## 3. Vocabulary
+## 2. Vocabulary
 
 Let's now expand on some vocabulary.
 
@@ -45,6 +31,20 @@ In the world of Option Contract pricing, there are some terms that are confusing
   Risk-Free Rate: a representation of a rate of return that you could earn on a **completely safe investment**. In our FDM method as well as Black-Scholes, we assume a "risk-neutral" valuation framework, basically pretending that all assets grow on average by this risk-free rate. We do this to show that any extra                          expected returns due to risk is "priced out," giving no opportunity for arbitrage
   
   Sigma:          our annualized volatility variable, or in specificity: the standard deviation of the underlying asset's continuously compounded returns. So, given a sigma of 0.3, we basically are saying, "This stock's log returns over one year have a standard deviation of 30%." On a deeper level, a higher sigma                        means that stock price is expected to take a wilder and more random "path." This makes options contracts more valuable as there is a greater chance that they will end up far in-the-money or out-of-the-money
+  
+## 3. Importing Libraries
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+```
+
+We will use NumPy for vector operations and linear transformations to construct our grid, while using SciPy to import a standard normal cumulative distribution function (CDF). 
+
+For context, the standard normal CDF gives the probability that a variable will take on a valule less than or equal to a specific value. It also represents the area under the standard normal probability density function (PDF) from negative infinity up to our variable. More on this when it comes up.
+
+The MatPlotLib library will be used to plot our results as well as our quantified error versus the Black-Scholes Model. 
 
 ## 4. Implementation
 
