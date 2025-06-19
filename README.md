@@ -156,7 +156,7 @@ def bs_put_price(S, Strike, Time, rf_rate, sigma):
 
 I know, this looks hectic. So let's break it down a bit:
 
-We know that Black-Scholes (for a Euro Put Contract) looks like this: **Put Value = Strike * e^(-rf_rate * T) * N(-d2) - S * N(-d1),**
+We know that Black-Scholes (for a Euro Put Contract) looks like this: **Put Value = Strike * e^(-rf_rate * T) * N(-d2) - S * N(-d1)** where N represents the standard normal CDF,
 
 Where:
   d1 = ( ln ( S / Strike ) + ( rf_rate + sigma^2 / 2 ) * T ) / ( sigma * sqrt( T ) )
@@ -187,6 +187,65 @@ we are really saying:
   d1 = A * x + b, where x is a **column vector** given by ( ln ( S ) ) and b is a **constant** given by ( rf_rate + 1/2 * sigma^2 ) * T but scaled by 1 / ( sigma * sqrt( T ) )
 
 Effectively, we are doing our operations element-wise, instead of via a matrix A.
+
+## 7. Black-Scholes Implementation (cont.)
+
+Remember how at the beginning of this file I said there would be more on the standard normal cumulative distribution function (CDF) and the standard normal probability density function (PDF) when they came up?
+
+Well, here we are.
+
+Let me explain what they are (from my knowledge at least):
+
+  A standard normal PDF describes the bell-shaped curve of the standard normal distribution. You remember from your Intro to Statistics class, it has a mean of 0 and a std. deviation of 1. You can think of the PDF as a smooth function that weights values greater if they are near zero while tapering rapidly for a        larger absolute value of input. In options pricing, it quantifies how "likely" small deviations are.
+
+  A standard normal CDF measures the area under the PDF curve from -infinity up to x. Intuitively, it tells you that if you pick some value x, then the CDF is the proportion of the bell-curve lying to the **left** of that point. If, for example, you picked x = 0, then the CDF( 0 ) = 0.5 because exactly half the         distribution lies below its mean. In options pricing, the CDF( -d2 ) and CDF( -d1 ) appears because they represent the risk-neutral probabilities of a Euro put contract finishing ITM.
+
+This brings me to our code in which we compute our risk-neutral terms. Recall from the B.S. equation above (N = CDF):
+
+  term1 = Strike * e^(-rf_rate * T) * N(-d2)
+  term2 = S * N(-d1)
+
+We compute this in Python and subtract term2 from term1:
+
+```python
+ # Create risk-neutral terms
+    term1 = Strike * np.exp(-rf_rate * Time) * norm.cdf(-d2)
+    term2 = S * norm.cdf(-d1)
+        
+    return term1 - term2
+```
+
+From here, we create a new grid of exact (not approximate) prices given by our B.S. function:
+
+```python
+# Compute the Black-Scholes price curve and produce an array of exact prices
+V_bs = bs_put_price(S, Strike, Time, rf_rate, sigma)
+```
+
+And voila, we have computed an array of prices given by the Black-Scholes model.
+
+## 8. Plotting the Overlay
+
+So far, we have created our Explicit Finite-Difference Method array of estimated prices as well as our Black-Scholes array of exact prices.
+
+Let's compare them visually!
+
+We use MatPlotLib to create a plot:
+
+```python
+# Create an overlay plot
+plt.plot(S, V, label="FDM Approximation")
+plt.plot(S, V_bs, label="Black-Scholes Price")
+plt.xlabel("Stock Price (S)")
+plt.ylabel("Put Price")
+plt.title("FDM vs. Black-Scholes at t=0")
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+Which outputs something like this:
+  
 
 
 
