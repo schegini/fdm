@@ -305,4 +305,4 @@ Interpreting this, we can see that on average my model is very precise as the me
 
 This means the true value of our Put contract must be extremely small at that stock price (S = $48.75).
 
-Overall, the model is mostly verified.
+Overall, the model is _mostly_ verified.
