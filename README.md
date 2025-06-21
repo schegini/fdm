@@ -244,7 +244,8 @@ plt.grid()
 plt.show()
 ```
 
-Which outputs something like this: #TODO: add output plot
+Which outputs something like this:
+![Figure_1](https://github.com/user-attachments/assets/338b5608-b224-47ff-b69b-d266de7d575a)
 
 Not too bad, huh?
   
@@ -283,7 +284,8 @@ plt.grid()
 plt.show()
 ```
 
-Which generates something like this: #TODO: add error plot
+Which generates something like this: 
+![Figure_2](https://github.com/user-attachments/assets/b3ac701b-2dc5-4e80-9145-45e88087ea05)
 
 
 
