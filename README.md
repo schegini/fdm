@@ -287,7 +287,20 @@ plt.show()
 Which generates something like this: 
 ![Figure_2](https://github.com/user-attachments/assets/b3ac701b-2dc5-4e80-9145-45e88087ea05)
 
+# 10. Error Quantification
 
+When we run our code, we should get an output like this:
 
+```python
+Using N = 3600 so dt = 6.944444444444444e-05 <= max_dt 6.944444444444444e-05
 
+Peak error: 0.00031107628207172056 at S = 48.75
+Max error:  0.00031107628207172056
+Mean error:  5.255954204839144e-05
+Max relative error:  1.0
+```
+Interpreting this, we can see that on average my model is very precise as the mean error is extremely small. We have one problematic region at S = $48.75 where our mean error deviates by ~ 3 x 10^-4 and in relative terms, that is a 100% error (which our max rel. error displays as 1.0).
 
+This means the true value of our Put contract must be extremely small at that stock price (S = $48.75).
+
+Overall, the model is mostly verified.
