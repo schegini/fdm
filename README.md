@@ -8,13 +8,13 @@ Here is a complete breakdown of my project:
 
 Let's now expand on some vocabulary.
 
-In the world of Option Contract pricing, there are some terms that are confusing to grasp for the common person. So, here is a detailed explanation of each term used:
+In the world of Option Contract pricing, there are some terms that are confusing to grasp. So, here is a detailed explanation of each term used:
 
   Call Option:    a financial contract that gives someone the opportunity to **purchase** an asset by a certain expiration date
 
   Put Option:     a financial contract that gives someone the opportunity to **sell** an asset by a certain expiration date
   
-  Strike Price:   a **predetermined price** at which a contract can be bought or sold at ($80 per XYZ share was the **strike price** in our example above)
+  Strike Price:   a **predetermined price** at which an asset can be bought or sold
   
   Time:           all option contracts have a date attached that specifies when the contract reaches maturity. In other words, the contract **expires** at a certain date, which then nullifies any intrinsic value that the contract may have
   
