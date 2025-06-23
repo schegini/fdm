@@ -4,25 +4,15 @@ This is a pet project that utilizes an Expilcit Finite-Difference Method (FDM) t
 
 Here is a complete breakdown of my project:
 
-## 1. Options Basic Overview
-
-First off, what even is an option? Essentially, an option is a financial contract that gives the holder the right, **but not the obligation,** to buy or sell an asset (usually a stock or index) at a specific price on or before a certain date.
-
-Furthermore, a **call option** gives the holder the right to **buy** the underlying asset at the specific price. A **put option** gives the holder the right to **sell** the underlying asset at the specific price.
-
-Traders use options to provide flexibility and leverage to their existing investing/trading strategy. For example, let's say a trader owns 100 shares of some stock XYZ which is trading at $100 per share at the moment. For some reason, he is worried about a potential loss if XYZ happens to go down in share price to say $50 per share in the future. The trader can purchase a put option giving him the right to sell at $80 to hedge his underlying investment. That way, even if XYZ drops to $50 per share, his contract states that he will be able to sell his position for $80 per share rather than $50 per share. 
-
-We say that a contract is "in-the-money" (ITM) if the price of the underlying asset is 1. **above** the strike price for **call options** or 2. **below** the strike price for **put options**. In our example above, since XYZ was trading lower than $80 per share, our trader's put contract was ITM. 
-
-Consequently, we say that a contract is "out-of-the-money" (OTM) if the price of the underlying is 1. **below** the strike price for **call options** or 2. **above** the strike price for **put options**. In our example, if our trader owned a call option for $80 per share and not a put option, his contract would be OTM.
-
-*Note that this is an oversimplification as option contracts are used in many different ways in countless unique trading strategies, but I trust that the reader gets the point. 
-
-## 2. Vocabulary
+## 1. Vocabulary
 
 Let's now expand on some vocabulary.
 
 In the world of Option Contract pricing, there are some terms that are confusing to grasp for the common person. So, here is a detailed explanation of each term used:
+
+  Call Option:    a financial contract that gives someone the opportunity to purchase an asset by a certain expiration date
+
+  Put Option:     a financial contract that gives someone the opportunity to sell an asset by a certain expiration date
   
   Strike Price:   a **predetermined price** at which a contract can be bought or sold at ($80 per XYZ share was the **strike price** in our example above)
   
@@ -31,6 +21,20 @@ In the world of Option Contract pricing, there are some terms that are confusing
   Risk-Free Rate: a representation of a rate of return that you could earn on a **completely safe investment**. In our FDM method as well as Black-Scholes, we assume a "risk-neutral" valuation framework, basically pretending that all assets grow on average by this risk-free rate. We do this to show that any extra                          expected returns due to risk is "priced out," giving no opportunity for arbitrage
   
   Sigma:          our annualized volatility variable, or in specificity: the standard deviation of the underlying asset's continuously compounded returns. So, given a sigma of 0.3, we basically are saying, "This stock's log returns over one year have a standard deviation of 30%." On a deeper level, a higher sigma                        means that stock price is expected to take a wilder and more random "path." This makes options contracts more valuable as there is a greater chance that they will end up far in-the-money or out-of-the-money
+
+## 2. Options Basic Overview
+
+First off, what even is an option? Essentially, an option is a financial contract that gives the holder the right, **but not the obligation,** to buy or sell an asset (usually a stock or index) at a specific price on or before a certain date.
+
+Furthermore, a **call option** gives the holder the right to **buy** the underlying asset at the specific price. A **put option** gives the holder the right to **sell** the underlying asset at the specific price.
+
+Traders use options to provide flexibility and leverage to their existing investing/trading strategy. For example, let's say a trader owns 100 shares of some stock XYZ which is trading at $100 per share at the moment. For example, if our trader is worried about a potential loss if XYZ happens to go down in share price to say $50 per share in the future. The trader can purchase a put option giving him the right to sell at $80 to hedge his underlying investment. That way, even if XYZ drops to $50 per share, his contract states that he will be able to sell his position for $80 per share rather than $50 per share. 
+
+We say that a contract is "in-the-money" (ITM) if the price of the underlying asset is 1. **above** the strike price for **call options** or 2. **below** the strike price for **put options**. In our example above, since XYZ was trading lower than $80 per share, our trader's put contract was ITM. 
+
+Consequently, we say that a contract is "out-of-the-money" (OTM) if the price of the underlying is 1. **below** the strike price for **call options** or 2. **above** the strike price for **put options**. In our example, if our trader owned a call option for $80 per share and not a put option, his contract would be OTM.
+
+*Note that this is an oversimplification as option contracts are used in many different ways in countless unique trading strategies, but I trust that the reader gets the point. 
   
 ## 3. Importing Libraries
 
