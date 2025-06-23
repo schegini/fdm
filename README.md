@@ -254,7 +254,7 @@ plt.grid()
 plt.show()
 ```
 
-Which outputs something like this:
+Which outputs something like this (note that the orange line overpowers the blue line underneath):
 
 ![Figure_1](https://github.com/user-attachments/assets/338b5608-b224-47ff-b69b-d266de7d575a)
 
