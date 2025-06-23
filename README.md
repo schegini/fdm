@@ -311,8 +311,8 @@ Max error:  0.00031107628207172056
 Mean error:  5.255954204839144e-05
 Max relative error:  1.0
 ```
-Interpreting this, we can see that on average my model is very precise as the mean error is extremely small. We have one problematic region at S = $48.75 where our mean error deviates by ~ 3 x 10^-4 and in relative terms, that is a 100% error (which our max rel. error displays as 1.0).
+Interpreting this we can see that on average, the model is precise as the mean error is extremely small. We have one problematic region at S = $48.75 where our mean error deviates by ~ 3 x 10^-4 and in relative terms that is a 100% error (which is why our max rel. error displays as 1.0).
 
-This means the true value of our Put contract must be extremely small at that stock price (S = $48.75).
+This means the true value of our put contract must be extremely small at that stock price (S = $48.75).
 
 Overall, the model is _mostly_ verified.
