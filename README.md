@@ -32,9 +32,9 @@ Let's recap **calls and puts.**
 
 A **call option** gives the holder the right to **buy** the underlying asset at the specific price. A **put option** gives the holder the right to **sell** the underlying asset at the specific price.
 
-Traders use options to provide flexibility and leverage to their existing investing/trading strategy. 
+Traders use options to provide flexibility and leverage to their existing investing/trading strategies. 
 
-For example, let's say a trader (let's call him John) owns 100 shares of some stock XYZ which is trading at $100 per share at the moment. If John is worried about potential losses if XYZ happens to go down in share price to say $50 per share in the future, John can purchase a put option giving him the right to sell at $80 to hedge his underlying investment. That way, even if XYZ drops to $50 per share, his contract states that he will be able to sell his position for $80 per share rather than $50 per share. 
+For example, let's say a trader (let's call him John) owns 100 shares of some stock XYZ which is trading at $100 per share at the moment. If John is worried about potential losses in the future, John can purchase a put option giving him the right to sell at $80 to hedge his underlying investment. That way, even if XYZ drops to $50 per share, his contract states that he will be able to sell his position for $80 per share rather than $50 per share. 
 
 We say that a contract is "in-the-money" (ITM) if the price of the underlying asset is 1. **above** the strike price for **call options** or 2. **below** the strike price for **put options**. In our example above, since XYZ was trading lower than $80 per share, John's put contract was ITM. 
 
