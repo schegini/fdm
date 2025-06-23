@@ -18,9 +18,9 @@ In the world of Option Contract pricing, there are some terms that are confusing
   
   Time:           all option contracts have a date attached that specifies when the contract reaches maturity. In other words, the contract **expires** at a certain date, which then nullifies any intrinsic value that the contract may have
   
-  Risk-Free Rate: a representation of a rate of return that you could earn on a **completely safe investment**. In our FDM method as well as Black-Scholes, we assume a "risk-neutral" valuation framework, basically pretending that all assets grow on average by this risk-free rate. We do this to show that any extra                          expected returns due to risk is "priced out," giving no opportunity for arbitrage
+  Risk-Free Rate: a representation of a rate of return that you could earn on a **completely safe investment**. In our FDM method as well as Black-Scholes, we assume a "risk-neutral" valuation framework, basically pretending that all assets grow on average by this risk-free rate. We do this to show that any extra                          expected returns due to risk is "priced out."
   
-  Sigma:          our annualized volatility variable, or in specificity: the standard deviation of the underlying asset's continuously compounded returns. So, given a sigma of 0.3, we basically are saying, "This stock's log returns over one year have a standard deviation of 30%." On a deeper level, a higher sigma                        means that stock price is expected to take a wilder and more random "path." This makes options contracts more valuable as there is a greater chance that they will end up far in-the-money or out-of-the-money
+  Sigma:          measures annualized volatility. Specifically, sigma measures the standard deviation of an asset's continuously compounded returns. For example, given a sigma of 0.3, we basically are saying, "This stock's log returns over one year have a standard deviation of 30%." On a deeper level, a higher sigma                        means that stock price is expected to take a wilder and more random "path." This makes options contracts more/less valuable depending on a higher/lower sigma.
 
 ## 2. Options Basic Overview
 
