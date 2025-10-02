@@ -112,7 +112,7 @@ We can relate this "taking a weighted average" to linear-algebra:
 
   A * V now produces a new column vector V_new whose i-th component is given by:             (V_new) = a_i V_i-1 + b_i V_i + c_i V_i+1
 
-  We essentially compute V_new entry-by-entry without explicit loops.
+  We essentially compute ```python V_new``` entry-by-entry without explicit loops.
 
   However, we have to realize that we are pricing a put contract, so the first and last entries need to address specific values. Therefore, the value at S = 0 is given by: Strike * e^(-rf_rate * dt). Additionally, the value at S_max = 100 is given by Strike = 0 (as it would be OTM).
 
