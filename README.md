@@ -190,11 +190,13 @@ After, we use NumPy's natural log function ```np.log()``` and square-root functi
 
 To keep the linear algebra going, if we say:
 
-  d1 = ( np.log( S / Strike ) + ( rf_rate + 0.5 * sigma**2 ) * Time ) / ( sigma * np.sqrt( Time ) ),
+  ```python
+d1 = ( np.log( S / Strike ) + ( rf_rate + 0.5 * sigma**2 ) * Time ) / ( sigma * np.sqrt( Time ) ),
+```
 
 we are really saying:
   
-  d1 = A * x + b, where x is a **column vector** given by ( ln ( S ) ) and b is a **constant** given by ( rf_rate + 1/2 * sigma^2 ) * T but scaled by 1 / ( sigma * sqrt( T ) )
+d1 = A * x + b, where x is a **column vector** given by ( ln ( S ) ) and b is a **constant** given by ( rf_rate + 1/2 * sigma^2 ) * T but scaled by 1 / ( sigma * sqrt( T ) )
 
 Effectively, we are doing our operations element-wise, instead of via a matrix A.
 
@@ -212,8 +214,10 @@ Let me explain what they are (from my knowledge at least):
 
 This brings me to our code in which we compute our risk-neutral terms. Recall from the B.S. equation above (N = CDF):
 
+```
   term1 = Strike * e^(-rf_rate * T) * N(-d2)
   term2 = S * N(-d1)
+```
 
 We compute this in Python and subtract term2 from term1:
 
@@ -311,8 +315,8 @@ Max error:  0.00031107628207172056
 Mean error:  5.255954204839144e-05
 Max relative error:  1.0
 ```
-Interpreting this we can see that on average, the model is precise as the mean error is extremely small. We have one problematic region at S = $48.75 where our mean error deviates by ~ 3 x 10^-4 and in relative terms that is a 100% error (which is why our max rel. error displays as 1.0).
+Interpreting this we can see that on average, the model is precise as the mean error is extremely small. We have one problematic region at ```S = $48.75``` where our mean error deviates by ~ 3 x 10^-4 and in relative terms that is a 100% error (which is why our max rel. error displays as 1.0).
 
-This means the true value of our put contract must be extremely small at that stock price (S = $48.75).
+This means the true value of our put contract must be extremely small at that stock price ```(S = $48.75)```.
 
 Overall, the model is _mostly_ verified.
